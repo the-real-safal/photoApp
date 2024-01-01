@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/process-images', [FileController::class, 'processImages'])->name('process_images');
 
 
-Route::get('/files', [FileController::class, 'index'])->name('files.index');
+    Route::get('/files', [FileController::class, 'index'])->name('files.index');
 Route::post('/upload', [FileController::class, 'upload']);
 Route::get('/image', [FileController::class, 'displayImages'])->name('files.image');
 Route::post('/export-selected-images', [FileController::class, 'exportSelectedImages'])->name('export_selected_images');

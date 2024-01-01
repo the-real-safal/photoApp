@@ -18,7 +18,7 @@
 
                     <x-nav-link :href="route('files.index')">
                         {{ __('Add Images') }}
-                    </x-nav-link>
+                    </x-nav-link>                    
 
                     <x-nav-link :href="route('files.image')">
                         {{ __('View Images') }}
