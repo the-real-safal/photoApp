@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/files', [FileController::class, 'index'])->name('files.index');
 Route::post('/upload', [FileController::class, 'upload']);
 Route::get('/image', [FileController::class, 'displayImages'])->name('files.image');
+Route::post('/export-selected-images', [FileController::class, 'exportSelectedImages'])->name('export_selected_images');
 Route::get('/files/{id}', [FileController::class, 'download']);
 Route::delete('/files/{id}', [FileController::class, 'delete']);
 

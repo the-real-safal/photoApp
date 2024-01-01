@@ -45,9 +45,15 @@
                         </div>
                         <div class="mt-4">
                             <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onclick="deleteSelected()">Delete Selected</button>
-                            <button type="button" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" onclick="exportSelected()">Export Selected</button>
+                            <button type="submit" class="bg-yellow-700 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded" formaction="{{ route('export_selected_images') }}">Export Selected</button>
                         </div>
                     </form>
+                    @if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
                 </div>
             </div>
         </div>

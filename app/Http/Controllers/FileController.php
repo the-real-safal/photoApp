@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use App\Models\Files;
 use Barryvdh\DomPDF\Facade as Pdf;
+use ZipArchive;
 
 
 
@@ -43,7 +44,42 @@ class FileController extends Controller
     
             return redirect()->route('files.image')->with('success', 'Selected images deleted successfully.');
         }
-    
+
+        public function exportSelectedImages(Request $request)
+{
+    try {
+        $selectedImages = $request->input('selected_images', []);
+        $zip = new ZipArchive();
+        $userName = auth()->user()->name;
+        $randomNumber = rand(1000, 9999);
+        $file_name = $userName . '_selected_images_' . $randomNumber . '.zip';
+
+        if ($zip->open(public_path($file_name), ZipArchive::CREATE) === true) {
+            foreach ($selectedImages as $imageName) {
+                $imagePath = public_path('storage/assets/' . $userName . '/images/' . $imageName);
+
+                // Check if the file exists before adding it to the ZIP archive
+                if (file_exists($imagePath)) {
+                    $relativeName = basename($imagePath);
+                    $zip->addFile($imagePath, $relativeName);
+                } else {
+                    // Log an error or handle the missing file
+                    return redirect()->back()->with('error', 'Error creating or downloading ZIP archive. File not found.');
+                }
+            }
+
+            $zip->close();
+            return response()->download(public_path($file_name))->deleteFileAfterSend(true);
+        } else {
+            return redirect()->back()->with('error', 'Error creating or downloading ZIP archive.');
+        }
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', $e->getMessage());
+    }
+}
+
+
+           
 
 
     public function upload(Request $request)
