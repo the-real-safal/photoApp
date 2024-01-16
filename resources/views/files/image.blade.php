@@ -38,7 +38,7 @@
                                 <div class="m-2" style="flex: 0 0 calc(25% - 1rem); box-sizing: border-box;">
                                     <img src="{{ asset('storage/assets/' . $username . '/images/' . $image->getFilename()) }}" alt="{{ $image->getFilename() }}" class="w-full h-auto">
                                     <div class="mt-2">
-                                        <input type="checkbox" name="selected_images[]" value="{{ $image->getFilename() }}"> Delete
+                                        <input type="checkbox" name="selected_images[]" value="{{ $image->getFilename() }}"> Select
                                     </div>
                                 </div>
                             @endforeach
